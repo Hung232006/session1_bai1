@@ -1,0 +1,105 @@
+1.
+
+-Người dùng (User)
+Thuộc tính: Mã người dùng, Họ tên, Email, Mật khẩu, Vai trò (học viên/giảng viên/quản trị)
+Khóa chính: Mã người dùng
+Khóa ngoại: Không
+
+-Giảng viên (Instructor)
+Thuộc tính: Mã giảng viên, Mã người dùng, Bằng cấp, Chuyên môn
+Khóa chính: Mã giảng viên
+Khóa ngoại: Mã người dùng-> Người dùng
+
+-Danh mục khóa học (Category)
+Thuộc tính: Mã danh mục, Tên danh mục
+Khóa chính: Mã danh mục
+Khóa ngoại: Không
+
+-Khóa học (Course)
+Thuộc tính: Mã khóa học, Tên khóa học, Mô tả, Trình độ, Học phí, Ngày phát hành, Mã danh mục, Mã giảng viên
+Khóa chính: Mã khóa học
+Khóa ngoại:
+Mã danh mục-> Danh mục khóa học
+Mã giảng viên-> Giảng viên
+
+-Đăng ký học (Enrollment)
+Thuộc tính: Mã đăng ký, Mã người dùng, Mã khóa học, Ngày đăng ký, Trạng thái
+Khóa chính: Mã đăng ký
+Khóa ngoại:
+Mã người dùng-> Người dùng
+Mã khóa học-> Khóa học
+
+-Bài học (Lesson)
+Thuộc tính: Mã bài học, Mã khóa học, Tiêu đề, Nội dung, Thời lượng
+Khóa chính: Mã bài học
+Khóa ngoại: Mã khóa học -> Khóa học
+
+-Bài nộp (Submission)
+Thuộc tính: Mã bài nộp, Mã bài tập, Mã người dùng, Đường dẫn file, Thời gian nộp, Điểm số
+Khóa chính: Mã bài nộp
+Khóa ngoại:
+Mã bài tập -> Bài tập
+Mã người dùng -> Người dùng
+
+-Bài kiểm tra (Quiz)
+Thuộc tính: Mã bài kiểm tra, Mã bài học, Tiêu đề, Số lượng câu hỏi
+Khóa chính: Mã bài kiểm tra
+Khóa ngoại: Mã bài học -> Bài học
+
+-Kết quả kiểm tra (Result)
+Thuộc tính: Mã kết quả, Mã người dùng, Mã bài kiểm tra, Điểm số, Ngày làm
+Khóa chính: Mã kết quả
+Khóa ngoại:
+Mã người dùng → Người dùng
+Mã bài kiểm tra → Bài kiểm tra
+Khóa ngoại:
+Mã người dùng-> Người dùng
+Mã bài kiểm tra → Bài kiểm tra
+
+-Bảng Thanh toán (Payment)
+Thuộc tính:
+Mã thanh toán
+Mã người dùng
+Mã khóa học
+Số tiền
+Phương thức thanh toán (thẻ, ví điện tử, chuyển khoản…)
+Ngày thanh toán
+Trạng thái (thành công, thất bại, đang xử lý)
+Khóa chính (PK): Mã thanh toán
+Khóa ngoại (FK):
+Mã người dùng → Người dùng
+Mã khóa học → Khóa học
+
+-Bảng Chứng chỉ (Certificate)
+Thuộc tính:
+Mã chứng chỉ
+Mã người dùng
+Mã khóa học
+Ngày cấp
+Loại chứng chỉ (hoàn thành, xuất sắc, chuyên ngành…)
+Khóa chính (PK): Mã chứng chỉ
+Khóa ngoại (FK):
+Mã người dùng -> Người dùng
+Mã khóa học -> Khóa học
+
+2.
+Giảng viên – Khóa học
+Một giảng viên có thể dạy nhiều khóa học.
+Quan hệ: 1 – n (một giảng viên -> nhiều khóa học).
+Khóa học – Danh mục
+Mỗi khóa học thuộc về một danh mục.
+Quan hệ: n – 1 (nhiều khóa học -> một danh mục).
+Khóa học – Bài học – Quiz
+Một khóa học có nhiều bài học.
+Mỗi bài học có thể có nhiều quiz.
+Quan hệ: 1 – n (khóa học -> bài học), và 1 – n (bài học -> quiz).
+Học viên – Khóa học (Enrollment)
+Một học viên có thể học nhiều khóa học.
+Một khóa học có nhiều học viên.
+Quan hệ: n – n (thông qua bảng Đăng ký học).
+Học viên – Quiz – Kết quả
+Một học viên có thể làm nhiều quiz.
+Mỗi lần làm quiz sinh ra một kết quả riêng.
+Quan hệ: n – n (học viên <-> quiz), được quản lý qua bảng Kết quả.
+Người dùng – Payment – Khóa học: Một học viên có thể thanh toán nhiều lần cho nhiều khóa học 1-n
+Người dùng – Certificate – Khóa học: Một học viên có thể nhận nhiều chứng chỉ từ nhiều khóa học 1-n
